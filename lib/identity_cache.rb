@@ -74,6 +74,10 @@ module IdentityCache
       !readonly
     end
 
+    def should_update_cache? # :nodoc:
+      !readonly && should_use_cache?
+    end
+
     def should_use_cache? # :nodoc:
       pool = ActiveRecord::Base.connection_pool
       !pool.active_connection? || pool.connection.open_transactions == 0
